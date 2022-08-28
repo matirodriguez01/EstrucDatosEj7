@@ -1,0 +1,30 @@
+from ClaseCola import Cola
+
+if __name__ == "__main__":
+    cola = Cola()
+    atenc = int(input("Ingrese el tiempo de atencion del cajero: "))
+    frec = int(input("Ingrese la frecuencia de llegada de los clientes: "))
+    tiempods = int(input("Ingrese la duracion de la simulacion: "))
+    cliente = 1
+    tiempomax = 0
+    j = atenc
+    for minuto in range(tiempods):
+        print(f"Minuto {minuto}")
+        if minuto % frec == 0 or minuto == 0:
+            cola.agregar(cliente)
+            cliente += 1
+
+        if j == 0:
+            j = atenc - 1
+            tiempomax -= atenc
+            salio = cola.suprimir()
+            if minuto - salio > tiempomax:
+                tiempomax = minuto - salio
+
+
+
+        else:
+            j -= 1
+
+        print(cola.recorrer())
+        print(f"Tiempo de espera max: {tiempomax} minutos")
