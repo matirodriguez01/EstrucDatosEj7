@@ -1,0 +1,51 @@
+import numpy as np
+
+class Cola:
+    __items = None
+    __max = None
+    __pri = None
+    __ult = None
+    __cant = None
+
+    def __init__(self, max=100):
+        self.__items = np.zeros(max)
+        self.__max = max
+        self.__pri = 0
+        self.__ult = 0
+        self.__cant = 0
+
+    def es_vacia(self):
+        vacia = False
+        if self.__cant == 0:
+            vacia = True
+        return vacia
+
+    def agregar(self,x):
+        if self.__cant<self.__max:
+            self.__items[self.__ult]=x
+            self.__ult = (self.__ult+1)%self.__max
+            self.__cant += 1
+            return x
+
+        else: return 0
+
+    def suprimir(self):
+        if self.es_vacia():
+            print("La cola esta vacia")
+
+        else:
+            x = self.__items[self.__pri]
+            self.__items[self.__pri] = 0
+            self.__pri = (self.__pri + 1) % self.__max
+            self.__cant -= 1
+            print(f"La persona {x} se retiro")
+            return x
+
+    def recorrer(self):
+        s = " "
+        if not self.__cant == 0:
+            for i in range(self.__cant):
+                s = s + str(self.__items[i]) + " , "
+            return s
+        else:
+            print("La cadena esta vacua")
